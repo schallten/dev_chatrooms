@@ -18,19 +18,38 @@ A **simple web chat application structured into 'Rooms' for multiple developers*
 ---
 
 ## 🧭 Page Breakdown
-1. **Landing Page** – Hero section with animated mock chat, CTAs (`Create Workspace`, `Join Workspace`), feature highlights oriented to teams
-2. **Workspace Onboarding Screen** – Create a new workspace or join an existing one by invite. This frames the product as a B2B internal tool.
-3. **Invite / Join Page** – New members enter their name and work email after clicking an invite link.
-4. **Rooms Dashboard** – Displays rooms within the workspace; includes workspace header and member count, rooms grouped by category, and room owners shown.
-5. **Admin Panel** – Lightweight interface for workspace administrators to manage members, rooms, and AI stack context.
-6. **Chat Room View** *(core screen)* –
-   - Sidebars: room list + members
-   - Chat area with timestamped messages, code blocks with syntax highlight & copy buttons
-   - Input bar with normal/text vs code mode toggle; `@AI` triggers gold highlight
-   - AI responses styled as distinct cards (badge/avatar + code snippet support)
-5. **Create/Join Room Modal/Page** – Simple form with room name, topic tag, privacy toggle
-6. **Profile/Settings** – Avatar, display name, tags, notification toggles
+1. **Landing Page** – Marketing front‑door that explains the single promise: a chat app built around **Rooms** and an AI assistant that helps resolve bugs in real time.
+2. **Workspace Onboarding** – Create or join a workspace; keeps the experience scoped to your team.
+3. **Invite / Join Page** – Enter your name and work email after clicking an invite link to get access to rooms.
+4. **Rooms Dashboard** – The hub where you browse and enter individual rooms. Each room is a focused conversation tied to a bug, task, or file.
+5. **Chat Room View** *(core screen)* –
+   - Left sidebar: your list of rooms and categories.
+   - Main area: threaded chat with messages and AI responses.
+   - Bottom input: type normally, mention `@AI` to get automatic bug fixes or code suggestions.
+6. **Create Room** – Simple form to spawn a new room with a name, topic, and optional invite-only toggle.
+7. **Profile/Settings** – Manage your display name, role, team, and language preferences (which tune AI replies).
+8. **Admin Panel** – For workspace owners: manage users, rooms, and the AI stack context that informs the assistant.
 
+---
+
+## 📦 Component Checklist
+- `MessageBubble`
+- `CodeBlock` (syntax highlight, copy button)
+- `AIResponseCard`
+- `RoomCard`
+- `SidebarNav`
+- `MemberList`
+- `InputBar` (mode toggle + `@mention` highlight)
+- `OnlineIndicator`
+
+---
+
+## 🛠 Build Order
+1. Landing → 2. Onboarding/Invite → 3. Rooms Dashboard → **4. Chat Room** (the heart of the product) → 5. Create Room → 6. Profile/Admin
+
+> Make the chat room the priority; everything else is just scaffolding around it.
+
+---
 ---
 
 ## 📦 Component Checklist

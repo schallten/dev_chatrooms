@@ -67,7 +67,7 @@ const Landing = () => {
                             Chat in Rooms with your team's <span className="text-gold">private engineering brain.</span><br />AI-powered bug fixes delivered instantly.
                         </h1>
                         <p style={{ fontSize: '1.25rem', color: 'var(--color-text-secondary)', marginBottom: '2.5rem', maxWidth: '800px', margin: '0 auto 3rem', lineHeight: 1.6 }}>
-                            From <code style={{ color: 'var(--color-accent)' }}>git clone</code> to shipped feature, entirely inside DevRooms.
+                            Discuss a bug, ask the AI, and ship fixes — all within the same room.
                         </p>
 
                         <div style={{ display: 'flex', gap: '1rem', justifyContent: 'center' }}>
@@ -133,8 +133,8 @@ const Landing = () => {
             {/* NEW SECTION 2 — The IDE Preview */}
             <section id="demo" style={{ padding: '8rem 4rem', maxWidth: '1200px', margin: '0 auto' }}>
                 <div style={{ textAlign: 'center', marginBottom: '4rem' }}>
-                    <h2 style={{ fontSize: '3rem', fontWeight: 800, marginBottom: '1rem' }}>A real editor. Inside your team's chat.</h2>
-                    <p style={{ color: 'var(--color-text-secondary)', fontSize: '1.25rem' }}>No more pasting code into ChatGPT. Select, ask, fix — right where your team is already talking.</p>
+                    <h2 style={{ fontSize: '3rem', fontWeight: 800, marginBottom: '1rem' }}>Everything you need, right in the room.</h2>
+                    <p style={{ color: 'var(--color-text-secondary)', fontSize: '1.25rem' }}>No context switching – chat, paste code, and let the AI fix bugs without leaving a conversation.</p>
                 </div>
 
                 <div className="ide-preview" style={{ position: 'relative' }}>
@@ -316,21 +316,6 @@ const Landing = () => {
                 </div>
             </section>
 
-            {/* NEW SECTION 6 — Social Proof Strip */}
-            <section style={{ padding: '4rem', background: '#0d1117', borderTop: '1px solid var(--color-border)' }}>
-                <div style={{ display: 'flex', justifyContent: 'center', gap: '6rem', alignItems: 'center', flexWrap: 'wrap' }}>
-                    {[
-                        { name: 'Meridian Labs', quote: '"We replaced our entire Slack + GitHub workflow."' },
-                        { name: 'Stackforge', quote: '"Saves our team 2 hours daily."' },
-                        { name: 'NovaBuild', quote: '"Engineering intelligence at its best."' }
-                    ].map(logo => (
-                        <div key={logo.name} style={{ textAlign: 'center' }}>
-                            <div style={{ fontSize: '1.5rem', fontWeight: 900, color: 'var(--color-text-muted)', marginBottom: '0.5rem', letterSpacing: '-0.05em' }}>{logo.name}</div>
-                            <div style={{ fontSize: '0.8rem', color: 'var(--color-text-secondary)', fontStyle: 'italic', maxWidth: '200px' }}>{logo.quote}</div>
-                        </div>
-                    ))}
-                </div>
-            </section>
 
             {/* NEW SECTION 7 — Workspace Setup CTA */}
             <section style={{ padding: '8rem 4rem', textAlign: 'center' }}>
@@ -341,7 +326,7 @@ const Landing = () => {
                         {[
                             { step: '1', title: 'Create Workspace', desc: 'Secure your team name (30s).' },
                             { step: '2', title: 'Invite Engineers', desc: 'Link or email domain.' },
-                            { step: '3', title: 'Clone & Ship', desc: 'Your first room awaits.' }
+                            { step: '3', title: 'Start Chatting', desc: 'Open your first room and ask @AI to fix a bug.' }
                         ].map(item => (
                             <div key={item.step} style={{ flex: 1, textAlign: 'left' }}>
                                 <div style={{ fontSize: '2rem', fontWeight: 900, color: 'var(--color-accent)', marginBottom: '1rem' }}>{item.step}</div>
@@ -381,7 +366,7 @@ const Landing = () => {
                     </div>
                     {[
                         { title: 'Product', links: ['Features', 'Modes', 'Pricing', 'Changelog'] },
-                        { title: 'Company', links: ['About', 'Hackathon 2026', 'Team Alpha'] },
+                        { title: 'Company', links: ['About', 'Careers'] },
                         { title: 'Developers', links: ['Docs', 'API', 'GitHub'] },
                         { title: 'Legal', links: ['Privacy', 'Terms'] }
                     ].map(col => (
@@ -394,7 +379,7 @@ const Landing = () => {
                     ))}
                 </div>
                 <div style={{ maxWidth: '1200px', margin: '4rem auto 0', paddingTop: '2rem', borderTop: '1px solid #161b22', color: 'var(--color-text-muted)', fontSize: '0.8rem', textAlign: 'center' }}>
-                    © 2026 DevRooms. All rights reserved. Built for the Hackathon by Team Alpha.
+                    © 2026 DevRooms. All rights reserved.
                 </div>
             </footer>
 
