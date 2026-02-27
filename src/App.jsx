@@ -9,12 +9,13 @@ import CreateRoom from './pages/CreateRoom';
 import Profile from './pages/Profile';
 import AdminPanel from './pages/AdminPanel';
 import Navbar from './components/Navbar';
+import { Zap } from 'lucide-react';
 
 const App = () => {
     return (
         <Router>
             <Navbar />
-            <div className="app-container" style={{ paddingTop: '64px' }}>
+            <div className="app-container">
                 <Routes>
                     <Route path="/" element={<Landing />} />
                     <Route path="/workspace" element={<WorkspaceOnboarding />} />
@@ -26,6 +27,11 @@ const App = () => {
                     <Route path="/admin" element={<AdminPanel />} />
                 </Routes>
             </div>
+
+            <a href="#demo" className="floating-demo">
+                <Zap size={18} />
+                Live Demo
+            </a>
         </Router>
     );
 };

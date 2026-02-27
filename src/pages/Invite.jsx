@@ -47,7 +47,7 @@ const Invite = () => {
                     </div>
                     <h1 style={{ fontSize: '1.75rem', fontWeight: 700, marginBottom: '0.5rem' }}>You're Invited</h1>
                     <p style={{ color: 'var(--color-text-secondary)', fontSize: '0.95rem' }}>
-                        You've been invited to join <strong>Acme Corp</strong>'s DevRooms workspace.
+                        You've been invited to join <strong>your company's</strong> DevRooms workspace.
                     </p>
                 </div>
 
@@ -86,7 +86,7 @@ const Invite = () => {
                             <Mail size={18} style={{ position: 'absolute', left: '12px', top: '50%', transform: 'translateY(-50%)', color: 'var(--color-text-muted)' }} />
                             <input
                                 type="email"
-                                placeholder="you@acme.com"
+                                placeholder="you@yourcompany.com"
                                 required
                                 style={{
                                     width: '100%',

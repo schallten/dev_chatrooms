@@ -4,9 +4,9 @@ import { Trash2, Archive, UserCheck } from 'lucide-react';
 
 const AdminPanel = () => {
     const members = [
-        { name: 'sarah_dev', role: 'Frontend', email: 'sarah@acme.com' },
-        { name: 'mike_j', role: 'Backend', email: 'mike@acme.com' },
-        { name: 'intern_tim', role: 'Intern', email: 'tim@acme.com' }
+        { name: 'sarah_dev', role: 'Frontend', email: 'sarah@example.com' },
+        { name: 'mike_j', role: 'Backend', email: 'mike@example.com' },
+        { name: 'intern_tim', role: 'Intern', email: 'tim@example.com' }
     ];
 
     const rooms = [

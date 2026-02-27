@@ -31,7 +31,7 @@ const Dashboard = () => {
                 <div style={{ padding: '1.5rem 2rem', borderBottom: '1px solid var(--color-border)', display: 'flex', alignItems: 'center', gap: '1rem' }}>
                     <div style={{ width: '40px', height: '40px', backgroundColor: 'var(--color-bg-card)', borderRadius: '8px', display: 'flex', alignItems: 'center', justifyContent: 'center', fontSize: '1.25rem', fontWeight: 700 }}>AC</div>
                     <div>
-                        <div style={{ fontSize: '1.25rem', fontWeight: 700 }}>Acme Corp Workspace</div>
+                        <div style={{ fontSize: '1.25rem', fontWeight: 700 }}>Workspace</div>
                         <div style={{ fontSize: '0.85rem', color: 'var(--color-text-secondary)' }}>Members: 128</div>
                     </div>
                 </div>

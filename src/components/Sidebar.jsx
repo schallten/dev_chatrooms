@@ -20,7 +20,7 @@ const Sidebar = ({ pinnedRooms = [], joinedRooms = [] }) => {
                     <Terminal size={18} color="#0d1117" />
                 </div>
                 <div>
-                    <div style={{ fontWeight: 700, fontSize: '1.1rem' }}>Acme Corp</div>
+                    <div style={{ fontWeight: 700, fontSize: '1.1rem' }}>Your Workspace</div>
                     <div style={{ fontSize: '0.75rem', color: 'var(--color-text-secondary)' }}>128 members</div>
                 </div>
             </div>

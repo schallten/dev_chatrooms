@@ -1,6 +1,6 @@
 # AI-Powered Dev Chat Rooms — Frontend
 
-This repository holds the frontend for **AI‑Powered Dev Chat Rooms**. It's designed as an **internal company developer tool** — your private engineering brain where every team has its own workspace, the AI understands your stack, and nothing leaks outside the organization.
+A **simple web chat application structured into 'Rooms' for multiple developers**, with a seamlessly integrated AI assistant for real-time, instant coding bug resolution. This repository holds the frontend for **AI‑Powered Dev Chat Rooms**. It's designed as an **internal company developer tool** — your private engineering brain where every team has its own workspace, the AI understands your stack, and nothing leaks outside the organization.
 
 > 🚀 **Approach:** Start with vanilla HTML/CSS/JS. Only migrate to a framework (React, Svelte, etc.) when complexity justifies it. Use **bun** for installers/package management (not `npm`).
 

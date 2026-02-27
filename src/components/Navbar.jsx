@@ -8,9 +8,28 @@ const Navbar = () => {
     const location = useLocation();
     const isLanding = location.pathname === '/';
 
+    React.useEffect(() => {
+        const body = document.body;
+        // ensure we start with a known theme state
+        body.classList.remove('theme-dark');
+        if (!body.classList.contains('theme-slate') && !body.classList.contains('theme-black')) {
+            body.classList.add('theme-slate');
+        }
+    }, []);
+
+    const toggleTheme = () => {
+        const body = document.body;
+        body.classList.remove('theme-dark');
+        if (body.classList.contains('theme-black')) {
+            body.classList.replace('theme-black', 'theme-slate');
+        } else {
+            body.classList.replace('theme-slate', 'theme-black');
+        }
+    };
+
     return (
         <nav className="glass" style={{
-            position: 'fixed',
+            position: 'sticky',
             top: 0,
             left: 0,
             right: 0,
@@ -19,7 +38,7 @@ const Navbar = () => {
             alignItems: 'center',
             justifyContent: 'space-between',
             padding: '0 2rem',
-            zIndex: 100,
+            zIndex: 1000,
             borderTop: 'none',
             borderLeft: 'none',
             borderRight: 'none'
@@ -60,16 +79,7 @@ const Navbar = () => {
                         Get Started
                     </Link>
                     <button
-                        onClick={() => {
-                            const body = document.body;
-                            if (body.classList.contains('theme-black')) {
-                                body.classList.remove('theme-black');
-                                body.classList.add('theme-slate');
-                            } else {
-                                body.classList.remove('theme-slate');
-                                body.classList.add('theme-black');
-                            }
-                        }}
+                        onClick={toggleTheme}
                         style={{ color: 'var(--color-text-secondary)', background: 'none', border: 'none', cursor: 'pointer' }}
                     >
                         🌓
@@ -84,16 +94,7 @@ const Navbar = () => {
                         <div style={{ position: 'absolute', top: '-2px', right: '-2px', width: '8px', height: '8px', background: 'var(--color-accent)', borderRadius: '50%', border: '2px solid var(--color-bg-deep)' }}></div>
                     </button>
                     <button
-                        onClick={() => {
-                            const body = document.body;
-                            if (body.classList.contains('theme-black')) {
-                                body.classList.remove('theme-black');
-                                body.classList.add('theme-slate');
-                            } else {
-                                body.classList.remove('theme-slate');
-                                body.classList.add('theme-black');
-                            }
-                        }}
+                        onClick={toggleTheme}
                         style={{ color: 'var(--color-text-secondary)', background: 'none', border: 'none', cursor: 'pointer' }}
                     >
                         🌓
