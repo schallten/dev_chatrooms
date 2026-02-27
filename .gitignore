@@ -7,6 +7,7 @@ __pycache__/
 *.so
 
 # Distribution / packaging
+node_modules/
 .Python
 build/
 develop-eggs/
@@ -22,6 +23,7 @@ var/
 wheels/
 share/python-wheels/
 *.egg-info/
+node_modules/
 .installed.cfg
 *.egg
 MANIFEST
