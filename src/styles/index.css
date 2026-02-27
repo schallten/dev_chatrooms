@@ -5,7 +5,8 @@
   --color-bg-deep: #0d1117;
   --color-bg-card: #161b22;
   --color-bg-card-hover: #21262d;
-  --color-accent: #f0a500; /* Amber/Gold */
+  --color-accent: #f0a500;
+  /* Amber/Gold */
   --color-accent-glow: rgba(240, 165, 0, 0.4);
   --color-text-primary: #f0f6fc;
   --color-text-secondary: #8b949e;
@@ -21,22 +22,29 @@
   --shadow-sm: 0 1px 2px 0 rgba(0, 0, 0, 0.05);
   --shadow-md: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
   --shadow-glow: 0 0 15px var(--color-accent-glow);
-  --color-accent-2: #58a6ff; /* electric blue for non-AI activity */
-  --color-accent-2-glow: rgba(88,166,255,0.3);
+  --color-accent-2: #58a6ff;
+  /* electric blue for non-AI activity */
+  --color-accent-2-glow: rgba(88, 166, 255, 0.3);
   --color-bg-black: #000000;
   --transition-fast: 0.15s ease;
   --transition-base: 0.25s ease;
 }
 
 /* dark variants toggle */
-body.theme-slate { background-color: var(--color-bg-deep); }
-body.theme-black { background-color: var(--color-bg-black); }
+body.theme-slate {
+  background-color: var(--color-bg-deep);
+}
+
+body.theme-black {
+  background-color: var(--color-bg-black);
+}
 
 /* landing page grid / dot pattern */
 .landing-bg {
   position: relative;
   overflow: hidden;
 }
+
 .landing-bg::before {
   content: '';
   position: absolute;
@@ -44,8 +52,8 @@ body.theme-black { background-color: var(--color-bg-black); }
   left: 0;
   right: 0;
   bottom: 0;
-  background-image: linear-gradient(rgba(255,255,255,0.048) 1px, transparent 1px),
-                    linear-gradient(90deg, rgba(255,255,255,0.048) 1px, transparent 1px);
+  background-image: linear-gradient(rgba(255, 255, 255, 0.048) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(255, 255, 255, 0.048) 1px, transparent 1px);
   background-size: 40px 40px;
   pointer-events: none;
   z-index: 0;
@@ -79,8 +87,13 @@ body.theme-black { background-color: var(--color-bg-black); }
 
 /* shimmer animation for AI card */
 @keyframes shimmer {
-  0% { background-position: -200px 0; }
-  100% { background-position: 200px 0; }
+  0% {
+    background-position: -200px 0;
+  }
+
+  100% {
+    background-position: 200px 0;
+  }
 }
 
 /* tooltip bubble */
@@ -100,20 +113,32 @@ body.theme-black { background-color: var(--color-bg-black); }
   opacity: 0;
   transition: opacity var(--transition-fast);
 }
-.tooltip.show { opacity: 1; }
+
+.tooltip.show {
+  opacity: 1;
+}
 
 .typing-dots {
   display: inline-block;
   width: 24px;
   text-align: center;
 }
+
 .typing-dots::after {
   content: '•••';
   animation: blink 1s infinite steps(3, end);
 }
+
 @keyframes blink {
-  0%, 100% { opacity: 0; }
-  50% { opacity: 1; }
+
+  0%,
+  100% {
+    opacity: 0;
+  }
+
+  50% {
+    opacity: 1;
+  }
 }
 
 
@@ -132,7 +157,8 @@ body {
   -moz-osx-font-smoothing: grayscale;
 }
 
-code, pre {
+code,
+pre {
   font-family: var(--font-mono);
 }
 
