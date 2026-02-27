@@ -77,6 +77,7 @@ const ChatRoom = () => {
                         <div>
                             <div style={{ fontSize: '1rem', fontWeight: 700 }}># react-explorers</div>
                             <div style={{ fontSize: '0.75rem', color: 'var(--color-text-muted)' }}>Frontend development and Vite optimization</div>
+                            <div style={{ fontSize: '0.7rem', color: 'var(--color-accent-2)', marginTop: '4px' }}>Purpose: backend API debugging — Node.js & PostgreSQL stack</div>
                         </div>
                     </div>
 
@@ -87,6 +88,11 @@ const ChatRoom = () => {
                     </div>
                 </header>
 
+                {/* Pinned messages */}
+                <div style={{ padding: '1rem 2rem', borderBottom: '1px solid var(--color-border)', backgroundColor: 'var(--color-bg-card)' }}>
+                    <strong style={{ color: 'var(--color-text-secondary)' }}>Pinned:</strong>
+                    <span style={{ marginLeft: '0.5rem', fontSize: '0.9rem' }}>📌 Remember to update API tokens before deploy</span>
+                </div>
                 {/* Messages Area */}
                 <div
                     ref={scrollRef}

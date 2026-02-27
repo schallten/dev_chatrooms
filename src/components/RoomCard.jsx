@@ -35,7 +35,10 @@ const RoomCard = ({ room }) => {
             </div>
 
             <div>
-                <h3 style={{ fontSize: '1.1rem', fontWeight: 600, marginBottom: '0.25rem' }}>{room.name}</h3>
+                <div style={{ display: 'flex', alignItems: 'center', gap: '6px' }}>
+                    <h3 style={{ fontSize: '1.1rem', fontWeight: 600, marginBottom: '0.25rem' }}>{room.name}</h3>
+                    {room.resolved && <span style={{ fontSize: '0.7rem', color: 'var(--color-accent-2)', background: 'rgba(88,166,255,0.1)', padding: '2px 6px', borderRadius: '6px' }}>Resolved</span>}
+                </div>
                 {/* topic tag with colored dot */}
                 <span style={{
                     fontSize: '0.75rem',
@@ -68,6 +71,9 @@ const RoomCard = ({ room }) => {
                     }}></span>
                     {room.topic}
                 </span>
+                <div style={{ fontSize: '0.75rem', color: 'var(--color-text-muted)', marginTop: '0.5rem' }}>
+                    Owner: {room.owner || 'unknown'}
+                </div>
             </div>
 
             <div style={{

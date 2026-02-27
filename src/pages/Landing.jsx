@@ -78,14 +78,14 @@ const Landing = () => {
                         </div>
 
                         <h1 style={{ fontSize: '4.5rem', fontWeight: 800, lineHeight: 1.1, marginBottom: '1.5rem', letterSpacing: '-0.03em' }}>
-                            Built for <span className="text-gold">Engineers</span>, Powered by <span style={{ fontStyle: 'italic' }}>AI.</span>
+                            Built for <span className="text-gold">Engineering Teams</span>, Powered by <span style={{ fontStyle: 'italic' }}>AI.</span>
                         </h1>
                         <p style={{ fontSize: '1.25rem', color: 'var(--color-text-secondary)', marginBottom: '2.5rem', maxWidth: '540px', lineHeight: 1.6 }}>
                             Real-time chat rooms with integrated AI assistants that understand your code. Debug, brainstorm, and build faster together.
                         </p>
 
                         <div style={{ display: 'flex', gap: '1rem' }}>
-                            <Link to="/auth" className="glow-hover" style={{
+                            <Link to="/workspace" className="glow-hover" style={{
                                 backgroundColor: 'var(--color-accent)',
                                 color: '#0d1117',
                                 padding: '14px 28px',
@@ -96,16 +96,16 @@ const Landing = () => {
                                 alignItems: 'center', gap: '8px'
                             }}>
                                 <Terminal size={18} />
-                                Create Room
+                                Create Workspace
                             </Link>
-                            <Link to="/dashboard" className="glass glow-hover" style={{
+                            <Link to="/invite" className="glass glow-hover" style={{
                                 padding: '14px 28px',
                                 borderRadius: '8px',
                                 fontSize: '1rem',
                                 fontWeight: 600,
                                 color: 'var(--color-text-primary)'
                             }}>
-                                Browse Rooms
+                                Join Workspace
                             </Link>
                         </div>
                     </motion.div>

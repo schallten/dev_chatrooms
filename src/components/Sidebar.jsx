@@ -19,7 +19,10 @@ const Sidebar = ({ pinnedRooms = [], joinedRooms = [] }) => {
                 <div className="bg-gold" style={{ padding: '6px', borderRadius: '8px' }}>
                     <Terminal size={18} color="#0d1117" />
                 </div>
-                <span style={{ fontWeight: 700, fontSize: '1.1rem' }}>DevRooms<span className="text-gold">.ai</span></span>
+                <div>
+                    <div style={{ fontWeight: 700, fontSize: '1.1rem' }}>Acme Corp</div>
+                    <div style={{ fontSize: '0.75rem', color: 'var(--color-text-secondary)' }}>128 members</div>
+                </div>
             </div>
 
             <nav style={{ padding: '1rem', flex: 1, display: 'flex', flexDirection: 'column', gap: '0.5rem' }}>
@@ -80,25 +83,37 @@ const Sidebar = ({ pinnedRooms = [], joinedRooms = [] }) => {
                     </>
                 )}
 
-                <div style={{ color: 'var(--color-text-muted)', fontSize: '0.7rem', fontWeight: 600, textTransform: 'uppercase', paddingLeft: '0.5rem', marginTop: pinnedRooms.length > 0 ? '0' : '1.5rem', marginBottom: '0.5rem' }}>
-                    Joined Rooms
-                </div>
-
-                {joinedRooms.map(room => (
-                    <NavLink key={room.id} to={`/room/${room.id}`} style={({ isActive }) => ({
-                        display: 'flex',
-                        alignItems: 'center',
-                        gap: '10px',
-                        padding: '10px 12px',
-                        borderRadius: '8px',
-                        backgroundColor: isActive ? 'rgba(255,255,255,0.05)' : 'transparent',
-                        color: isActive ? 'var(--color-text-primary)' : 'var(--color-text-secondary)',
-                        fontWeight: 500,
-                        fontSize: '0.9rem'
-                    })}>
-                        <MessageSquare size={16} style={{ color: 'var(--color-accent)' }} /> {room.name}
-                    </NavLink>
-                ))}
+                {/* rooms grouped by category */}
+                {(() => {
+                    const groups = {};
+                    joinedRooms.forEach(r => {
+                        const cat = r.category || 'General';
+                        if (!groups[cat]) groups[cat] = [];
+                        groups[cat].push(r);
+                    });
+                    return Object.entries(groups).map(([cat, rooms]) => (
+                        <div key={cat} style={{ marginTop: '1rem' }}>
+                            <div style={{ color: 'var(--color-text-muted)', fontSize: '0.7rem', fontWeight: 600, textTransform: 'uppercase', paddingLeft: '0.5rem', marginBottom: '0.5rem' }}>
+                                {cat}
+                            </div>
+                            {rooms.map(room => (
+                                <NavLink key={room.id} to={`/room/${room.id}`} style={({ isActive }) => ({
+                                    display: 'flex',
+                                    alignItems: 'center',
+                                    gap: '10px',
+                                    padding: '10px 12px',
+                                    borderRadius: '8px',
+                                    backgroundColor: isActive ? 'rgba(255,255,255,0.05)' : 'transparent',
+                                    color: isActive ? 'var(--color-text-primary)' : 'var(--color-text-secondary)',
+                                    fontWeight: 500,
+                                    fontSize: '0.9rem'
+                                })}>
+                                    <MessageSquare size={16} style={{ color: 'var(--color-accent)' }} /> {room.name}
+                                </NavLink>
+                            ))}
+                        </div>
+                    ));
+                })()}
 
                 <NavLink to="/create-room" className="glow-hover" style={{
                     marginTop: '1rem',

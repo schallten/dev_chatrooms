@@ -48,7 +48,7 @@ const Navbar = () => {
                 <div style={{ display: 'flex', alignItems: 'center', gap: '2rem' }}>
                     <a href="#features" style={{ color: 'var(--color-text-secondary)', fontSize: '0.9rem', fontWeight: 500 }}>Features</a>
                     <a href="#about" style={{ color: 'var(--color-text-secondary)', fontSize: '0.9rem', fontWeight: 500 }}>Pricing</a>
-                    <Link to="/auth" className="glow-hover" style={{
+                    <Link to="/workspace" className="glow-hover" style={{
                         backgroundColor: 'var(--color-accent)',
                         color: '#0d1117',
                         padding: '8px 16px',

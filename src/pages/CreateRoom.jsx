@@ -135,9 +135,9 @@ const CreateRoom = () => {
                                     }}>
                                         <div style={{ display: 'flex', alignItems: 'center', gap: '8px', color: 'var(--color-accent)' }}>
                                             <Globe size={18} />
-                                            <span style={{ fontSize: '1rem', fontWeight: 600 }}>Public</span>
+                                            <span style={{ fontSize: '1rem', fontWeight: 600 }}>Workspace-wide</span>
                                         </div>
-                                        <p style={{ fontSize: '0.8rem', color: 'var(--color-text-muted)', lineHeight: 1.4 }}>Discoverable by everyone in the community.</p>
+                                        <p style={{ fontSize: '0.8rem', color: 'var(--color-text-muted)', lineHeight: 1.4 }}>Visible to everyone in the workspace.</p>
                                     </div>
 
                                     <div style={{
@@ -151,9 +151,9 @@ const CreateRoom = () => {
                                     }}>
                                         <div style={{ display: 'flex', alignItems: 'center', gap: '8px', color: 'var(--color-text-secondary)' }}>
                                             <Lock size={18} />
-                                            <span style={{ fontSize: '1rem', fontWeight: 600 }}>Private</span>
+                                            <span style={{ fontSize: '1rem', fontWeight: 600 }}>Invite-only</span>
                                         </div>
-                                        <p style={{ fontSize: '0.8rem', color: 'var(--color-text-muted)', lineHeight: 1.4 }}>Only visible to members you manually invite.</p>
+                                        <p style={{ fontSize: '0.8rem', color: 'var(--color-text-muted)', lineHeight: 1.4 }}>Requires an invite link; not shown to others by default.</p>
                                     </div>
                                 </div>
                             </div>

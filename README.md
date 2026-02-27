@@ -1,6 +1,6 @@
 # AI-Powered Dev Chat Rooms — Frontend
 
-This repository holds the frontend for **AI‑Powered Dev Chat Rooms**. The goal is a sleek, developer‑centric chat application with AI assistance baked into the conversation flow.
+This repository holds the frontend for **AI‑Powered Dev Chat Rooms**. It's designed as an **internal company developer tool** — your private engineering brain where every team has its own workspace, the AI understands your stack, and nothing leaks outside the organization.
 
 > 🚀 **Approach:** Start with vanilla HTML/CSS/JS. Only migrate to a framework (React, Svelte, etc.) when complexity justifies it. Use **bun** for installers/package management (not `npm`).
 
@@ -18,10 +18,12 @@ This repository holds the frontend for **AI‑Powered Dev Chat Rooms**. The goal
 ---
 
 ## 🧭 Page Breakdown
-1. **Landing Page** – Hero section with animated mock chat, CTAs (`Create Room`, `Join Room`), feature highlights
-2. **Auth Page** – Centered card for username/email entry; light flow to create/join
-3. **Rooms Dashboard** – Sidebar with joined rooms, main area with room cards, top navbar with avatar/settings
-4. **Chat Room View** *(core screen, build first after scaffold)* –
+1. **Landing Page** – Hero section with animated mock chat, CTAs (`Create Workspace`, `Join Workspace`), feature highlights oriented to teams
+2. **Workspace Onboarding Screen** – Create a new workspace or join an existing one by invite. This frames the product as a B2B internal tool.
+3. **Invite / Join Page** – New members enter their name and work email after clicking an invite link.
+4. **Rooms Dashboard** – Displays rooms within the workspace; includes workspace header and member count, rooms grouped by category, and room owners shown.
+5. **Admin Panel** – Lightweight interface for workspace administrators to manage members, rooms, and AI stack context.
+6. **Chat Room View** *(core screen)* –
    - Sidebars: room list + members
    - Chat area with timestamped messages, code blocks with syntax highlight & copy buttons
    - Input bar with normal/text vs code mode toggle; `@AI` triggers gold highlight

@@ -6,20 +6,20 @@ import { Search, Bell, User } from 'lucide-react';
 
 const Dashboard = () => {
     const joinedRooms = [
-        { id: '1', name: 'react-explorers', topic: 'React, Vite', members: 12, lastUser: 'dave_codes', lastMessage: 'Anyone know why my Vite build is failing?' },
-        { id: '2', name: 'rust-beginners', topic: 'Rust', members: 45, lastUser: 'ferris_wheel', lastMessage: 'Ownership is finally clicking for me!' },
-        { id: '3', name: 'python-ai-lab', topic: 'Python, ML', members: 89, lastUser: 'ml_guru', lastMessage: '@AI help me optimize this numpy broadcast' },
+        { id: '1', name: 'react-explorers', topic: 'React, Vite', members: 12, lastUser: 'dave_codes', lastMessage: 'Anyone know why my Vite build is failing?', owner: 'sarah_dev', category: 'Frontend' },
+        { id: '2', name: 'rust-beginners', topic: 'Rust', members: 45, lastUser: 'ferris_wheel', lastMessage: 'Ownership is finally clicking for me!', owner: 'mike_j', category: 'Backend', resolved: true },
+        { id: '3', name: 'python-ai-lab', topic: 'Python, ML', members: 89, lastUser: 'ml_guru', lastMessage: '@AI help me optimize this numpy broadcast', owner: 'ml_guru', category: 'Infrastructure' },
     ];
 
     const pinnedRooms = [
         { id: '3', name: 'python-ai-lab' }
     ];
 
-    const publicRooms = [
+    const workspaceRooms = [
         ...joinedRooms,
-        { id: '4', name: 'typescript-gurus', topic: 'TypeScript', members: 156, lastUser: 'type_safe', lastMessage: 'I love mapped types.' },
-        { id: '5', name: 'docker-masters', topic: 'DevOps', members: 32, lastUser: 'whale_container', lastMessage: 'Multi-stage builds are awesome.' },
-        { id: '6', name: 'frontend-performance', topic: 'Performance', members: 21, lastUser: 'speed_demon', lastMessage: 'Lighthouse score 100!' },
+        { id: '4', name: 'typescript-gurus', topic: 'TypeScript', members: 156, lastUser: 'type_safe', lastMessage: 'I love mapped types.', owner: 'type_safe', category: 'Frontend' },
+        { id: '5', name: 'docker-masters', topic: 'DevOps', members: 32, lastUser: 'whale_container', lastMessage: 'Multi-stage builds are awesome.', owner: 'ops_lead', category: 'Infrastructure' },
+        { id: '6', name: 'frontend-performance', topic: 'Performance', members: 21, lastUser: 'speed_demon', lastMessage: 'Lighthouse score 100!', owner: 'speed_demon', category: 'Frontend' },
     ];
 
     return (
@@ -27,6 +27,14 @@ const Dashboard = () => {
             <Sidebar joinedRooms={joinedRooms} pinnedRooms={pinnedRooms} />
 
             <main style={{ flex: 1, display: 'flex', flexDirection: 'column' }}>
+                {/* Workspace Banner */}
+                <div style={{ padding: '1.5rem 2rem', borderBottom: '1px solid var(--color-border)', display: 'flex', alignItems: 'center', gap: '1rem' }}>
+                    <div style={{ width: '40px', height: '40px', backgroundColor: 'var(--color-bg-card)', borderRadius: '8px', display: 'flex', alignItems: 'center', justifyContent: 'center', fontSize: '1.25rem', fontWeight: 700 }}>AC</div>
+                    <div>
+                        <div style={{ fontSize: '1.25rem', fontWeight: 700 }}>Acme Corp Workspace</div>
+                        <div style={{ fontSize: '0.85rem', color: 'var(--color-text-secondary)' }}>Members: 128</div>
+                    </div>
+                </div>
                 {/* Top Header */}
                 <header style={{
                     height: '64px',
@@ -107,7 +115,7 @@ const Dashboard = () => {
                             gridTemplateColumns: 'repeat(auto-fill, minmax(300px, 1fr))',
                             gap: '1.5rem'
                         }}>
-                            {publicRooms.map(room => (
+                            {workspaceRooms.map(room => (
                                 <RoomCard key={room.id} room={room} />
                             ))}
                         </div>
