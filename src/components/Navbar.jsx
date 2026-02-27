@@ -7,6 +7,9 @@ import { useLocation } from 'react-router-dom';
 const Navbar = () => {
     const location = useLocation();
     const isLanding = location.pathname === '/';
+    const isDesignGuide = location.pathname === '/design-guide';
+
+    if (isDesignGuide) return null;
 
     React.useEffect(() => {
         const body = document.body;
@@ -65,6 +68,7 @@ const Navbar = () => {
 
             {isLanding ? (
                 <div style={{ display: 'flex', alignItems: 'center', gap: '2rem' }}>
+                    <Link to="/design-guide" style={{ color: 'var(--color-text-secondary)', fontSize: '0.9rem', fontWeight: 500 }}>Pitch Deck</Link>
                     <a href="#features" style={{ color: 'var(--color-text-secondary)', fontSize: '0.9rem', fontWeight: 500 }}>Features</a>
                     <a href="#about" style={{ color: 'var(--color-text-secondary)', fontSize: '0.9rem', fontWeight: 500 }}>Pricing</a>
                     <Link to="/workspace" className="glow-hover" style={{

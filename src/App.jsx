@@ -8,6 +8,7 @@ import ChatRoom from './pages/ChatRoom';
 import CreateRoom from './pages/CreateRoom';
 import Profile from './pages/Profile';
 import AdminPanel from './pages/AdminPanel';
+import DesignGuide from './pages/DesignGuide';
 import Navbar from './components/Navbar';
 import { Zap } from 'lucide-react';
 
@@ -18,6 +19,7 @@ const App = () => {
             <div className="app-container">
                 <Routes>
                     <Route path="/" element={<Landing />} />
+                    <Route path="/design-guide" element={<DesignGuide />} />
                     <Route path="/workspace" element={<WorkspaceOnboarding />} />
                     <Route path="/invite" element={<Invite />} />
                     <Route path="/dashboard" element={<Dashboard />} />
