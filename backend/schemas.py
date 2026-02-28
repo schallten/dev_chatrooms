@@ -10,6 +10,12 @@ class UserCreate(UserBase):
     password: str
     workspace_id: Optional[int] = None
 
+
+class LoginRequest(BaseModel):
+    email: str
+    password: str
+
+
 class User(UserBase):
     id: int
     workspace_id: Optional[int]
