@@ -1,5 +1,7 @@
 import React from 'react';
-import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
+import { BrowserRouter as Router, Routes, Route, Navigate } from 'react-router-dom';
+import { AuthProvider, useAuth } from './contexts/AuthContext';
+import { RoomProvider } from './contexts/RoomContext';
 import Landing from './pages/Landing';
 import Invite from './pages/Invite';
 import WorkspaceOnboarding from './pages/WorkspaceOnboarding';
@@ -12,29 +14,66 @@ import DesignGuide from './pages/DesignGuide';
 import Navbar from './components/Navbar';
 import { Zap } from 'lucide-react';
 
-const App = () => {
+// Protected route component
+const ProtectedRoute = ({ element }) => {
+    const { isAuthenticated, loading } = useAuth();
+
+    if (loading) {
+        return (
+            <div style={{
+                display: 'flex',
+                alignItems: 'center',
+                justifyContent: 'center',
+                height: '100vh',
+                fontSize: '1.2rem',
+                color: 'var(--color-text-secondary)'
+            }}>
+                Loading...
+            </div>
+        );
+    }
+
+    return isAuthenticated ? element : <Navigate to="/" replace />;
+};
+
+// App content component (uses auth hook)
+const AppContent = () => {
+    const { isAuthenticated } = useAuth();
+
     return (
         <Router>
-            <Navbar />
+            {isAuthenticated && <Navbar />}
             <div className="app-container">
                 <Routes>
                     <Route path="/" element={<Landing />} />
                     <Route path="/design-guide" element={<DesignGuide />} />
-                    <Route path="/workspace" element={<WorkspaceOnboarding />} />
-                    <Route path="/invite" element={<Invite />} />
-                    <Route path="/dashboard" element={<Dashboard />} />
-                    <Route path="/room/:id" element={<ChatRoom />} />
-                    <Route path="/create-room" element={<CreateRoom />} />
-                    <Route path="/profile" element={<Profile />} />
-                    <Route path="/admin" element={<AdminPanel />} />
+                    <Route path="/workspace" element={<ProtectedRoute element={<WorkspaceOnboarding />} />} />
+                    <Route path="/invite" element={<ProtectedRoute element={<Invite />} />} />
+                    <Route path="/dashboard" element={<ProtectedRoute element={<Dashboard />} />} />
+                    <Route path="/room/:id" element={<ProtectedRoute element={<ChatRoom />} />} />
+                    <Route path="/create-room" element={<ProtectedRoute element={<CreateRoom />} />} />
+                    <Route path="/profile" element={<ProtectedRoute element={<Profile />} />} />
+                    <Route path="/admin" element={<ProtectedRoute element={<AdminPanel />} />} />
                 </Routes>
             </div>
 
-            <a href="#demo" className="floating-demo">
-                <Zap size={18} />
-                Live Demo
-            </a>
+            {!isAuthenticated && (
+                <a href="#demo" className="floating-demo">
+                    <Zap size={18} />
+                    Live Demo
+                </a>
+            )}
         </Router>
+    );
+};
+
+const App = () => {
+    return (
+        <AuthProvider>
+            <RoomProvider>
+                <AppContent />
+            </RoomProvider>
+        </AuthProvider>
     );
 };
 

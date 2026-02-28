@@ -1,0 +1,27 @@
+# AI-Powered Dev Chat Rooms - Backend Dependencies
+
+# Web Framework
+fastapi>=0.134.0
+uvicorn[standard]>=0.41.0
+
+# Real-time Communication
+python-socketio[asyncio]>=5.16.1
+
+# Database
+sqlalchemy>=2.0.47
+
+# Authentication
+passlib[bcrypt]>=1.7.4
+pyjwt>=2.11.0
+
+# AI Integration
+google-generativeai>=0.8.6
+
+# Environment Variables
+python-dotenv>=1.2.1
+
+# Optional: For development
+# pytest>=7.0.0
+# pytest-asyncio>=0.23.0
+# black>=23.0.0
+# flake8>=6.0.0

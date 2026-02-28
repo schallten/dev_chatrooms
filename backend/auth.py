@@ -35,3 +35,19 @@ def decode_access_token(token: str):
         return payload
     except jwt.PyJWTError:
         return None
+
+def verify_token(token: str):
+    """Verify and extract email from token"""
+    if not token:
+        return None
+    
+    # Handle 'Bearer ' prefix
+    if token.startswith('Bearer '):
+        token = token[7:]
+    
+    payload = decode_access_token(token)
+    if not payload:
+        return None
+    
+    email = payload.get('sub')
+    return email

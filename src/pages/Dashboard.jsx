@@ -1,40 +1,62 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 import Sidebar from '../components/Sidebar';
-import { Link } from 'react-router-dom';
 import RoomCard from '../components/RoomCard';
-import { Search, Bell, User } from 'lucide-react';
+import { useAuth } from '../contexts/AuthContext';
+import { useRoom } from '../contexts/RoomContext';
+import { Search, Bell, LogOut } from 'lucide-react';
 
 const Dashboard = () => {
-    const joinedRooms = [
-        { id: '1', name: 'react-explorers', topic: 'React, Vite', members: 12, lastUser: 'dave_codes', lastMessage: 'Anyone know why my Vite build is failing?', owner: 'sarah_dev', category: 'Frontend' },
-        { id: '2', name: 'rust-beginners', topic: 'Rust', members: 45, lastUser: 'ferris_wheel', lastMessage: 'Ownership is finally clicking for me!', owner: 'mike_j', category: 'Backend', resolved: true },
-        { id: '3', name: 'python-ai-lab', topic: 'Python, ML', members: 89, lastUser: 'ml_guru', lastMessage: '@AI help me optimize this numpy broadcast', owner: 'ml_guru', category: 'Infrastructure' },
-    ];
+    const navigate = useNavigate();
+    const { user, logout } = useAuth();
+    const { rooms, loading } = useRoom();
+    const [searchQuery, setSearchQuery] = useState('');
 
-    const pinnedRooms = [
-        { id: '3', name: 'python-ai-lab' }
-    ];
+    const handleLogout = () => {
+        logout();
+        navigate('/');
+    };
 
-    const workspaceRooms = [
-        ...joinedRooms,
-        { id: '4', name: 'typescript-gurus', topic: 'TypeScript', members: 156, lastUser: 'type_safe', lastMessage: 'I love mapped types.', owner: 'type_safe', category: 'Frontend' },
-        { id: '5', name: 'docker-masters', topic: 'DevOps', members: 32, lastUser: 'whale_container', lastMessage: 'Multi-stage builds are awesome.', owner: 'ops_lead', category: 'Infrastructure' },
-        { id: '6', name: 'frontend-performance', topic: 'Performance', members: 21, lastUser: 'speed_demon', lastMessage: 'Lighthouse score 100!', owner: 'speed_demon', category: 'Frontend' },
-    ];
+    const filteredRooms = rooms.filter(room =>
+        room.name.toLowerCase().includes(searchQuery.toLowerCase()) ||
+        (room.topic && room.topic.toLowerCase().includes(searchQuery.toLowerCase()))
+    );
+
+    if (loading) {
+        return (
+            <div style={{
+                display: 'flex',
+                alignItems: 'center',
+                justifyContent: 'center',
+                height: '100vh',
+                fontSize: '1.2rem',
+                color: 'var(--color-text-secondary)'
+            }}>
+                Loading rooms...
+            </div>
+        );
+    }
+
+    const joinedRooms = filteredRooms.slice(0, 3); // Show first 3 as "joined"
 
     return (
         <div style={{ display: 'flex', minHeight: '100vh', backgroundColor: 'var(--color-bg-deep)' }}>
-            <Sidebar joinedRooms={joinedRooms} pinnedRooms={pinnedRooms} />
+            <Sidebar joinedRooms={joinedRooms} />
 
             <main style={{ flex: 1, display: 'flex', flexDirection: 'column' }}>
                 {/* Workspace Banner */}
-                <div style={{ padding: '1.5rem 2rem', borderBottom: '1px solid var(--color-border)', display: 'flex', alignItems: 'center', gap: '1rem' }}>
-                    <div style={{ width: '40px', height: '40px', backgroundColor: 'var(--color-bg-card)', borderRadius: '8px', display: 'flex', alignItems: 'center', justifyContent: 'center', fontSize: '1.25rem', fontWeight: 700 }}>AC</div>
-                    <div>
-                        <div style={{ fontSize: '1.25rem', fontWeight: 700 }}>Workspace</div>
-                        <div style={{ fontSize: '0.85rem', color: 'var(--color-text-secondary)' }}>Members: 128</div>
+                <div style={{ padding: '1.5rem 2rem', borderBottom: '1px solid var(--color-border)', display: 'flex', alignItems: 'center', justifyContent: 'space-between' }}>
+                    <div style={{ display: 'flex', alignItems: 'center', gap: '1rem' }}>
+                        <div style={{ width: '40px', height: '40px', backgroundColor: 'var(--color-bg-card)', borderRadius: '8px', display: 'flex', alignItems: 'center', justifyContent: 'center', fontSize: '1.25rem', fontWeight: 700 }}>
+                            {user?.name?.slice(0, 2).toUpperCase()}
+                        </div>
+                        <div>
+                            <div style={{ fontSize: '1.25rem', fontWeight: 700 }}>{user?.name || 'User'}</div>
+                            <div style={{ fontSize: '0.85rem', color: 'var(--color-text-secondary)' }}>Workspace ID: {user?.workspace_id}</div>
+                        </div>
                     </div>
                 </div>
+
                 {/* Top Header */}
                 <header style={{
                     height: '64px',
@@ -48,7 +70,9 @@ const Dashboard = () => {
                         <Search size={16} style={{ position: 'absolute', left: '12px', top: '50%', transform: 'translateY(-50%)', color: 'var(--color-accent-2)' }} />
                         <input
                             type="text"
-                            placeholder="Search (⌘K) rooms or members..."
+                            placeholder="Search rooms..."
+                            value={searchQuery}
+                            onChange={(e) => setSearchQuery(e.target.value)}
                             style={{
                                 width: '100%',
                                 padding: '8px 12px 8px 36px',
@@ -62,31 +86,26 @@ const Dashboard = () => {
                         />
                     </div>
 
-                    <div style={{ display: 'flex', alignItems: 'center', gap: '1.5rem' }}>
-                        <button style={{ color: 'var(--color-text-secondary)', position: 'relative' }}>
-                            <Bell size={20} />
-                            <div style={{ position: 'absolute', top: '-2px', right: '-2px', width: '8px', height: '8px', background: 'var(--color-accent)', borderRadius: '50%', border: '2px solid var(--color-bg-deep)' }}></div>
-                        </button>
-                        <div style={{ display: 'flex', alignItems: 'center', gap: '10px', paddingLeft: '1.5rem', borderLeft: '1px solid var(--color-border)' }}>
-                            <div style={{ textAlign: 'right' }}>
-                                <div style={{ fontSize: '0.85rem', fontWeight: 600 }}>Alex Rivers</div>
-                                <div style={{ fontSize: '0.7rem', color: 'var(--color-text-muted)' }}>Pro Developer</div>
-                            </div>
-                            <div style={{
-                                width: '36px',
-                                height: '36px',
-                                borderRadius: '50%',
-                                backgroundColor: 'var(--color-accent)',
+                    <div style={{ display: 'flex', alignItems: 'center', gap: '1rem' }}>
+                        <button
+                            onClick={handleLogout}
+                            style={{
                                 display: 'flex',
                                 alignItems: 'center',
-                                justifyContent: 'center',
-                                fontWeight: 700,
-                                color: '#0d1117',
-                                fontSize: '0.9rem'
-                            }}>
-                                AR
-                            </div>
-                        </div>
+                                gap: '0.5rem',
+                                padding: '8px 16px',
+                                borderRadius: '6px',
+                                background: 'transparent',
+                                border: '1px solid var(--color-border)',
+                                color: 'var(--color-text-secondary)',
+                                cursor: 'pointer',
+                                fontSize: '0.9rem',
+                                fontWeight: 600
+                            }}
+                        >
+                            <LogOut size={16} />
+                            Logout
+                        </button>
                     </div>
                 </header>
 
@@ -95,19 +114,15 @@ const Dashboard = () => {
                     <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-end', marginBottom: '2rem' }}>
                         <div>
                             <h1 style={{ fontSize: '1.75rem', fontWeight: 700, marginBottom: '0.5rem' }}>Rooms Dashboard</h1>
-                            <p style={{ color: 'var(--color-text-secondary)' }}>Welcome back! You have 3 active conversations today.</p>
-                        </div>
-                        <div style={{ display: 'flex', gap: '0.75rem' }}>
-                            <button className="glow-hover-blue" style={{ padding: '8px 16px', borderRadius: '6px', fontSize: '0.9rem', fontWeight: 500 }}>All</button>
-                            <button className="glow-hover-blue" style={{ padding: '8px 16px', borderRadius: '6px', fontSize: '0.9rem', fontWeight: 500, color: 'var(--color-text-secondary)' }}>Favorites</button>
-                            <button className="glow-hover-blue" style={{ padding: '8px 16px', borderRadius: '6px', fontSize: '0.9rem', fontWeight: 500, color: 'var(--color-text-secondary)' }}>Official</button>
+                            <p style={{ color: 'var(--color-text-secondary)' }}>{filteredRooms.length} room{filteredRooms.length !== 1 ? 's' : ''} available</p>
                         </div>
                     </div>
 
-                    {joinedRooms.length === 0 ? (
+                    {filteredRooms.length === 0 ? (
                         <div style={{ textAlign: 'center', padding: '6rem 0' }}>
-                            <p style={{ fontSize: '1.25rem', color: 'var(--color-text-secondary)' }}>You haven't joined any rooms yet.</p>
-                            <Link to="/create-room" className="bg-gold glow-hover" style={{ padding: '12px 24px', borderRadius: '8px', fontWeight: 600, color: '#0d1117', fontSize: '0.95rem' }}>Create your first room</Link>
+                            <p style={{ fontSize: '1.25rem', color: 'var(--color-text-secondary)' }}>
+                                {searchQuery ? 'No rooms match your search.' : 'No rooms available yet.'}
+                            </p>
                         </div>
                     ) : (
                         <div style={{
@@ -115,7 +130,7 @@ const Dashboard = () => {
                             gridTemplateColumns: 'repeat(auto-fill, minmax(300px, 1fr))',
                             gap: '1.5rem'
                         }}>
-                            {workspaceRooms.map(room => (
+                            {filteredRooms.map(room => (
                                 <RoomCard key={room.id} room={room} />
                             ))}
                         </div>

@@ -1,10 +1,11 @@
 import React, { useState } from 'react';
 import { motion } from 'framer-motion';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
+import { useAuth } from '../contexts/AuthContext';
 import {
     Terminal, Shield, Cpu, Zap, Code, GitBranch, Folder,
     ArrowRight, MessageSquare, Archive, Bug, Eye,
-    Link2, VolumeX, Search, Plus, Users, CheckCircle
+    Link2, VolumeX, Search, Plus, Users, CheckCircle, X
 } from 'lucide-react';
 
 const FeatureCard = ({ icon: Icon, title, description }) => (
@@ -31,8 +32,231 @@ const FeatureCard = ({ icon: Icon, title, description }) => (
     </div>
 );
 
+// Auth Modal Component
+const AuthModal = ({ onClose }) => {
+    const [isLogin, setIsLogin] = useState(true);
+    const [loading, setLoading] = useState(false);
+    const [error, setError] = useState('');
+    const [formData, setFormData] = useState({
+        name: '',
+        email: '',
+        password: '',
+        workspaceId: 1
+    });
+    const { login, register } = useAuth();
+    const navigate = useNavigate();
+
+    const handleChange = (e) => {
+        setFormData({
+            ...formData,
+            [e.target.name]: e.target.value
+        });
+    };
+
+    const handleSubmit = async (e) => {
+        e.preventDefault();
+        setLoading(true);
+        setError('');
+
+        try {
+            if (isLogin) {
+                await login(formData.email, formData.password);
+            } else {
+                await register(formData.name, formData.email, formData.password, formData.workspaceId);
+            }
+            navigate('/dashboard');
+        } catch (err) {
+            setError(err.message || 'An error occurred');
+        } finally {
+            setLoading(false);
+        }
+    };
+
+    return (
+        <div style={{
+            position: 'fixed',
+            inset: 0,
+            background: 'rgba(0, 0, 0, 0.8)',
+            display: 'flex',
+            alignItems: 'center',
+            justifyContent: 'center',
+            zIndex: 1000
+        }}>
+            <motion.div
+                initial={{ opacity: 0, scale: 0.9 }}
+                animate={{ opacity: 1, scale: 1 }}
+                className="glass"
+                style={{
+                    padding: '2rem',
+                    borderRadius: '16px',
+                    width: '90%',
+                    maxWidth: '400px',
+                    position: 'relative'
+                }}
+            >
+                <button
+                    onClick={onClose}
+                    style={{
+                        position: 'absolute',
+                        top: '1rem',
+                        right: '1rem',
+                        background: 'none',
+                        border: 'none',
+                        cursor: 'pointer',
+                        color: 'var(--color-text-secondary)'
+                    }}
+                >
+                    <X size={20} />
+                </button>
+
+                <h2 style={{ marginBottom: '2rem', fontSize: '1.5rem', fontWeight: 700 }}>
+                    {isLogin ? 'Sign In' : 'Create Account'}
+                </h2>
+
+                {error && (
+                    <div style={{
+                        background: 'rgba(248, 81, 73, 0.1)',
+                        border: '1px solid #f85149',
+                        color: '#f85149',
+                        padding: '0.75rem',
+                        borderRadius: '8px',
+                        marginBottom: '1rem',
+                        fontSize: '0.9rem'
+                    }}>
+                        {error}
+                    </div>
+                )}
+
+                <form onSubmit={handleSubmit} style={{ display: 'flex', flexDirection: 'column', gap: '1rem' }}>
+                    {!isLogin && (
+                        <input
+                            type="text"
+                            name="name"
+                            placeholder="Full Name"
+                            value={formData.name}
+                            onChange={handleChange}
+                            required={!isLogin}
+                            style={{
+                                padding: '0.75rem',
+                                borderRadius: '8px',
+                                border: '1px solid var(--color-border)',
+                                background: 'var(--color-bg-card)',
+                                color: 'var(--color-text-primary)',
+                                fontSize: '1rem'
+                            }}
+                        />
+                    )}
+
+                    <input
+                        type="email"
+                        name="email"
+                        placeholder="Email"
+                        value={formData.email}
+                        onChange={handleChange}
+                        required
+                        style={{
+                            padding: '0.75rem',
+                            borderRadius: '8px',
+                            border: '1px solid var(--color-border)',
+                            background: 'var(--color-bg-card)',
+                            color: 'var(--color-text-primary)',
+                            fontSize: '1rem'
+                        }}
+                    />
+
+                    <input
+                        type="password"
+                        name="password"
+                        placeholder="Password"
+                        value={formData.password}
+                        onChange={handleChange}
+                        required
+                        style={{
+                            padding: '0.75rem',
+                            borderRadius: '8px',
+                            border: '1px solid var(--color-border)',
+                            background: 'var(--color-bg-card)',
+                            color: 'var(--color-text-primary)',
+                            fontSize: '1rem'
+                        }}
+                    />
+
+                    <button
+                        type="submit"
+                        disabled={loading}
+                        style={{
+                            padding: '0.75rem',
+                            backgroundColor: 'var(--color-accent)',
+                            color: '#0d1117',
+                            border: 'none',
+                            borderRadius: '8px',
+                            fontWeight: 700,
+                            cursor: loading ? 'not-allowed' : 'pointer',
+                            opacity: loading ? 0.6 : 1
+                        }}
+                    >
+                        {loading ? 'Loading...' : isLogin ? 'Sign In' : 'Create Account'}
+                    </button>
+                </form>
+
+                <div style={{
+                    marginTop: '1.5rem',
+                    textAlign: 'center',
+                    fontSize: '0.9rem',
+                    color: 'var(--color-text-secondary)'
+                }}>
+                    {isLogin ? "Don't have an account? " : 'Already have an account? '}
+                    <button
+                        onClick={() => {
+                            setIsLogin(!isLogin);
+                            setError('');
+                        }}
+                        style={{
+                            background: 'none',
+                            border: 'none',
+                            color: 'var(--color-accent)',
+                            cursor: 'pointer',
+                            fontWeight: 600,
+                            textDecoration: 'underline'
+                        }}
+                    >
+                        {isLogin ? 'Sign up' : 'Sign in'}
+                    </button>
+                </div>
+
+                {isLogin && (
+                    <div style={{
+                        marginTop: '1.5rem',
+                        padding: '1rem',
+                        background: 'rgba(240, 165, 0, 0.05)',
+                        borderRadius: '8px',
+                        fontSize: '0.85rem',
+                        color: 'var(--color-text-secondary)'
+                    }}>
+                        <strong>Test Credentials:</strong><br />
+                        Email: test@example.com<br />
+                        Password: password123
+                    </div>
+                )}
+            </motion.div>
+        </div>
+    );
+};
+
 const Landing = () => {
     const [activeMode, setActiveMode] = useState('bug');
+    const [showAuthModal, setShowAuthModal] = useState(false);
+    const { isAuthenticated } = useAuth();
+
+    if (isAuthenticated) {
+        return (
+            <div style={{ textAlign: 'center', paddingTop: '2rem' }}>
+                <Link to="/dashboard" style={{ color: 'var(--color-accent)', fontSize: '1.1rem', fontWeight: 700 }}>
+                    Go to Dashboard →
+                </Link>
+            </div>
+        );
+    }
 
     return (
         <div style={{ background: 'var(--color-bg-deep)' }}>
@@ -71,28 +295,26 @@ const Landing = () => {
                         </p>
 
                         <div style={{ display: 'flex', gap: '1rem', justifyContent: 'center' }}>
-                            <Link to="/workspace" className="glow-hover" style={{
-                                backgroundColor: 'var(--color-accent)',
-                                color: '#0d1117',
-                                padding: '16px 32px',
-                                borderRadius: '8px',
-                                fontSize: '1.1rem',
-                                fontWeight: 700,
-                                display: 'flex',
-                                alignItems: 'center', gap: '8px'
-                            }}>
+                            <button
+                                onClick={() => setShowAuthModal(true)}
+                                className="glow-hover"
+                                style={{
+                                    backgroundColor: 'var(--color-accent)',
+                                    color: '#0d1117',
+                                    padding: '16px 32px',
+                                    borderRadius: '8px',
+                                    fontSize: '1.1rem',
+                                    fontWeight: 700,
+                                    display: 'flex',
+                                    alignItems: 'center',
+                                    gap: '8px',
+                                    border: 'none',
+                                    cursor: 'pointer'
+                                }}
+                            >
                                 <Terminal size={18} />
-                                Create Workspace
-                            </Link>
-                            <Link to="/invite" className="glass glow-hover" style={{
-                                padding: '16px 32px',
-                                borderRadius: '8px',
-                                fontSize: '1.1rem',
-                                fontWeight: 600,
-                                color: 'var(--color-text-primary)'
-                            }}>
-                                Join Workspace
-                            </Link>
+                                Get Started
+                            </button>
                             <a href="#demo" className="glow-hover-blue" style={{
                                 padding: '16px 32px',
                                 borderRadius: '8px',
@@ -103,7 +325,7 @@ const Landing = () => {
                                 alignItems: 'center',
                                 gap: '8px'
                             }}>
-                                Open Live Demo <ArrowRight size={18} />
+                                View Demo <ArrowRight size={18} />
                             </a>
                         </div>
                     </motion.div>
@@ -389,6 +611,9 @@ const Landing = () => {
                 <div><code>⌘Enter</code> Send</div>
                 <div><code>⌘Shift+A</code> @AI</div>
             </div>
+
+            {/* Auth Modal */}
+            {showAuthModal && <AuthModal onClose={() => setShowAuthModal(false)} />}
         </div>
     );
 };
