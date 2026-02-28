@@ -94,7 +94,16 @@ def get_rooms(db: Session = Depends(get_db)):
 
 @app.get("/api/rooms/{room_id}/messages", response_model=list[schemas.Message])
 def get_room_messages(room_id: int, db: Session = Depends(get_db)):
-    return db.query(database.Message).filter(database.Message.room_id == room_id).order_by(database.Message.timestamp.desc()).limit(50).all()[::-1]
+    # fetch recent messages with user names
+    msgs = db.query(database.Message).filter(database.Message.room_id == room_id).order_by(database.Message.timestamp.desc()).limit(50).all()[::-1]
+    results = []
+    for m in msgs:
+        item = schemas.Message.from_orm(m).dict()
+        if m.user_id:
+            usr = db.query(database.User).filter(database.User.id == m.user_id).first()
+            item['user_name'] = usr.name if usr else None
+        results.append(item)
+    return results
 
 # Store authenticated users
 user_sessions = {}

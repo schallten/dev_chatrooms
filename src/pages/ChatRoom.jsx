@@ -127,23 +127,23 @@ const ChatRoom = () => {
                         </div>
                     ) : (
                         messages.map((msg, idx) => {
-                            if (msg.is_ai) {
+                            if (msg.isAI) {
                                 return (
                                     <AIResponseCard
                                         key={msg.id || idx}
-                                        user="AI Assistant"
-                                        timestamp={new Date(msg.timestamp).toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' })}
-                                        text={msg.content}
+                                        content={msg.text}
+                                        code={msg.code}
+                                        language={msg.language}
                                     />
                                 );
                             }
                             return (
                                 <MessageBubble
                                     key={msg.id || idx}
-                                    user={msg.user_name || 'Unknown'}
+                                    user={msg.user}
                                     timestamp={new Date(msg.timestamp).toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' })}
-                                    text={msg.content}
-                                    isCode={msg.is_code}
+                                    text={msg.text}
+                                    isCode={msg.isCode}
                                     language={msg.language}
                                 />
                             );

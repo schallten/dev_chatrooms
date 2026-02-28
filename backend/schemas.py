@@ -64,6 +64,7 @@ class Message(MessageCreate):
     id: int
     user_id: Optional[int]
     timestamp: datetime
+    user_name: Optional[str] = None  # populated in responses
 
     class Config:
         from_attributes = True

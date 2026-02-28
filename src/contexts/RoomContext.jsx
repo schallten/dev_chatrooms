@@ -33,6 +33,21 @@ export const RoomProvider = ({ children }) => {
     }
   };
 
+  // Helper that converts backend payload to UI shape
+  const normalize = (msg) => {
+    if (!msg) return null;
+    return {
+      id: msg.id,
+      text: msg.content || msg.text || '',
+      user: msg.user_name || msg.user || (msg.is_ai ? 'AI Assistant' : 'Unknown'),
+      timestamp: msg.timestamp,
+      isAI: msg.is_ai || msg.isAI || false,
+      isCode: msg.is_code || msg.isCode || false,
+      language: msg.language,
+      room_id: msg.room_id,
+    };
+  };
+
   // Join room and fetch messages
   const joinRoom = async (roomId) => {
     setLoading(true);
@@ -43,7 +58,8 @@ export const RoomProvider = ({ children }) => {
       
       // Fetch messages
       const data = await roomAPI.getRoomMessages(roomId);
-      setMessages(data);
+      const normalized = data.map(normalize).filter(Boolean);
+      setMessages(normalized);
       
       // Join via Socket.IO
       socketService.joinRoom(roomId);
@@ -63,9 +79,10 @@ export const RoomProvider = ({ children }) => {
   // Listen for new messages from socket
   useEffect(() => {
     const unsubscribe = socketService.on('new_message', (message) => {
+      if (!message) return; // guard against bad payload
       // Only add message if it's for current room
       if (message.room_id === currentRoom?.id) {
-        setMessages((prev) => [...prev, message]);
+        setMessages((prev) => [...prev, normalize(message)]);
       }
     });
 

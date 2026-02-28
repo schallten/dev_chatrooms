@@ -351,6 +351,14 @@ This can happen if the backend code accidentally shadowed the imported `auth` mo
 
 **Solution:** Restart the backend after fixing the server (rename conflicting function or alias the import); the login endpoint should then return a 200/401 with proper headers.
 
+### Issue: "message is undefined" or React crash in chat room
+```
+Uncaught TypeError: can't access property "user", message is undefined
+```
+Occurs when the UI components expect a `message` object but receive props like `user`/`text` separately (or vice versa), often after a refactor. It can also surface if an undefined value sneaks into the messages array.
+
+**Solution:** Ensure messages are normalized before rendering and components accept the correct props. In the current code the `RoomContext` maps backend/socket payloads into `{ user, text, timestamp, isAI, ... }` and `MessageBubble` uses those fields. Clearing localStorage or reloading the page won't help if shape mismatch persists; restart the dev server after updating components.
+
 ### Issue: "Socket not connected"
 ```
 Socket error: Socket not connected
