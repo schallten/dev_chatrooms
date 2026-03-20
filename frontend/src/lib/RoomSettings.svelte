@@ -44,7 +44,7 @@
     }
 </script>
 
-<div class="modal-overlay" on:click|self={onClose}>
+<div class="modal-overlay" on:click|self={onClose} on:keydown={(e) => e.key === 'Escape' && onClose()} role="button" tabindex="-1" aria-label="Close modal">
     <div class="modal">
         <header>
             <h2>Room Settings: #{room.name}</h2>
@@ -56,14 +56,14 @@
                 <p>Loading settings...</p>
             {:else}
                 <div class="field">
-                    <label>AI API Key</label>
-                    <input type="password" bind:value={aiApiKey} placeholder="sk-..." />
+                    <label for="ai-api-key">AI API Key</label>
+                    <input id="ai-api-key" type="password" bind:value={aiApiKey} placeholder="sk-..." />
                     <p class="help">Enter your OpenAI/Anthropic/Google API key for this room.</p>
                 </div>
                 
                 <div class="field">
-                    <label>AI Model</label>
-                    <select bind:value={aiModel}>
+                    <label for="ai-model">AI Model</label>
+                    <select id="ai-model" bind:value={aiModel}>
                         {#each models as model}
                             <option value={model}>{model}</option>
                         {/each}

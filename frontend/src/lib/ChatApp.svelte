@@ -1,5 +1,5 @@
 <script>
-    import { getMe, logout } from './api';
+    import { getMe, logout, apiFetch } from './api';
     import { onMount } from 'svelte';
     import Sidebar from './Sidebar.svelte';
     import ChatWindow from './ChatWindow.svelte';
@@ -160,24 +160,6 @@
         display: flex;
         flex-direction: column;
         background: #ffffff;
-    }
-    .room-header {
-        padding: 1rem 1.5rem;
-        border-bottom: 1px solid #eee;
-    }
-    .room-header h1 {
-        margin: 0;
-        font-size: 1.25rem;
-    }
-    .room-header p {
-        margin: 0.25rem 0 0 0;
-        color: #666;
-        font-size: 0.9rem;
-    }
-    .messages {
-        flex: 1;
-        padding: 1.5rem;
-        overflow-y: auto;
     }
     .centered {
         display: flex;

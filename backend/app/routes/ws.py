@@ -5,8 +5,8 @@ import json
 from jose import jwt, JWTError
 import os
 
-from ..db import AsyncSessionLocal
-from ..auth import SECRET_KEY, ALGORITHM
+from app.db import AsyncSessionLocal
+from app.routes.auth import SECRET_KEY, ALGORITHM
 from sqlalchemy import text
 
 router = APIRouter()

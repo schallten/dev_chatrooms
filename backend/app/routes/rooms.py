@@ -6,9 +6,9 @@ from pydantic import BaseModel
 from uuid import UUID
 from datetime import datetime
 
-from ..db import get_db
-from .auth import get_current_user
-from ..models import User
+from app.db import get_db
+from app.routes.auth import get_current_user
+from app.models import User
 
 router = APIRouter()
 
