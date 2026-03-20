@@ -1,0 +1,10 @@
+fastapi
+uvicorn
+asyncpg
+sqlalchemy
+pydantic
+python-jose[cryptography]
+passlib[bcrypt]
+python-multipart
+python-dotenv
+httpx
